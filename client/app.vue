@@ -42,10 +42,10 @@
           </button>
         </form>
         
-        <div class="mt-6 text-center text-sm text-gray-600">
+        <!-- <div class="mt-6 text-center text-sm text-gray-600">
           <p>Demo accounts:</p>
           <p><strong>admin/admin</strong> (Admin) | <strong>manager/manager</strong> (Sales Manager)</p>
-        </div>
+        </div> -->
       </div>
     </div>
 

@@ -4,7 +4,7 @@
     <div class="p-4 max-w-4xl mx-auto">
       <!-- Main Actions - Centered and Larger -->
       <div class="flex flex-col items-center justify-center min-h-[60vh] space-y-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">{{ $t('selectAction') }}</h2>
+        <!-- <h2 class="text-2xl font-bold text-gray-800 mb-8">{{ $t('selectAction') }}</h2> -->
         
         <div class="grid grid-cols-1 gap-8 w-full max-w-2xl">
           <button

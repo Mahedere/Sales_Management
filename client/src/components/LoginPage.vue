@@ -5,7 +5,7 @@
         <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
           <Store class="w-8 h-8 text-white" />
         </div>
-        <h1 class="text-2xl font-bold text-gray-800 mb-2">Business Manager</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Sales Manager</h1>
         <p class="text-gray-600">Sign in to your account</p>
       </div>
       
@@ -40,10 +40,10 @@
         </button>
       </form>
       
-      <div class="mt-6 text-center text-sm text-gray-600">
+      <!-- <div class="mt-6 text-center text-sm text-gray-600">
         <p>Demo accounts:</p>
         <p><strong>manager1/manager1</strong> | <strong>manager2/manager2</strong> | <strong>manager3/manager3</strong></p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
