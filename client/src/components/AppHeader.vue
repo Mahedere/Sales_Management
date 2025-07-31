@@ -12,6 +12,14 @@
       </div>
       
       <div class="flex items-center space-x-2">
+        <!-- Language Toggle -->
+        <button
+          @click="toggleLanguage"
+          class="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors"
+        >
+          {{ currentLanguage === 'en' ? 'አማ' : 'EN' }}
+        </button>
+        
         <span class="text-sm text-gray-600 hidden sm:block">{{ currentUser?.name }}</span>
         <button
           @click="logout"
@@ -27,18 +35,19 @@
 <script setup>
 import { ArrowLeft, LogOut } from 'lucide-vue-next'
 import { useAuth } from '@/composables/useAuth'
+import { useI18n } from '@/composables/useI18n'
 import { useRoute } from 'vue-router'
 
-const { currentUser, logout } = useAuth()
 const route = useRoute()
+const { currentUser, logout } = useAuth()
+const { currentLanguage, toggleLanguage, $t } = useI18n()
 
 const getPageTitle = () => {
   const titles = {
-    dashboard: 'Dashboard',
-    sales: 'Sales Input',
-    lenders: 'Lender Management',
-    users: 'User Management'
+    dashboard: $t('dashboard'),
+    sales: $t('salesInput'),
+    lenders: $t('lenderManagement')
   }
-  return titles[route.name] || 'Dashboard'
+  return titles[route.name] || $t('dashboard')
 }
 </script>

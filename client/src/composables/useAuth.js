@@ -1,16 +1,16 @@
 "use client"
 
-import { ref, computed } from "vue"
+import { ref } from "vue"
 import { useRouter } from "vue-router"
 
 const isAuthenticated = ref(false)
 const currentUser = ref(null)
 
-// Demo users
+// Simplified users - no admin role needed
 const users = [
-  { id: 1, username: "admin", password: "admin", name: "Admin User", role: "admin" },
-  { id: 2, username: "manager", password: "manager", name: "Sales Manager", role: "manager" },
-  { id: 3, username: "service", password: "service", name: "Customer Service", role: "service" },
+  { id: 1, username: "manager1", password: "manager1", name: "Sales Manager 1", role: "manager" },
+  { id: 2, username: "manager2", password: "manager2", name: "Sales Manager 2", role: "manager" },
+  { id: 3, username: "manager3", password: "manager3", name: "Sales Manager 3", role: "manager" },
 ]
 
 export function useAuth() {
@@ -34,16 +34,11 @@ export function useAuth() {
     router.push("/")
   }
 
-  const isAdmin = computed(() => currentUser.value?.role === "admin")
-  const isManager = computed(() => currentUser.value?.role === "manager")
-
   return {
     isAuthenticated,
     currentUser,
     users,
     login,
     logout,
-    isAdmin,
-    isManager,
   }
 }

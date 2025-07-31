@@ -21,6 +21,43 @@
   background: #a8a8a8;
 }
 
+/* Prevent horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Responsive text sizing */
+@media (max-width: 640px) {
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+
+  .text-xl {
+    font-size: 1.25rem;
+  }
+
+  .text-lg {
+    font-size: 1.125rem;
+  }
+}
+
+/* Better button spacing on mobile */
+@media (max-width: 640px) {
+  .space-x-2 > * + * {
+    margin-left: 0.25rem;
+  }
+
+  .space-x-3 > * + * {
+    margin-left: 0.5rem;
+  }
+}
+
 /* Smooth transitions */
 .fade-enter-active,
 .fade-leave-active {

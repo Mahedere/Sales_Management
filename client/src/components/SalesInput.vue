@@ -1,15 +1,15 @@
 <template>
   <div>
     <AppHeader />
-    <div class="p-4 space-y-6">
+    <div class="p-4 max-w-4xl mx-auto space-y-6">
       <!-- Sales Form -->
       <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6">Add New Sale</h2>
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">{{ $t('addNewSale') }}</h2>
         
-        <form @submit.prevent="handleAddSale" class="space-y-4">
+        <form @submit.prevent="showConfirmation = true" class="space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Item Name</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('itemName') }}</label>
               <div class="relative">
                 <input
                   v-model="saleForm.itemName"
@@ -18,7 +18,7 @@
                   type="text"
                   required
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Type or select item"
+                  :placeholder="$t('typeOrSelectItem')"
                 />
                 <div
                   v-if="showItemSuggestions && filteredItems.length > 0"
@@ -29,7 +29,7 @@
                     :key="item"
                     type="button"
                     @click="selectItem(item)"
-                    class="w-full px-4 py-2 text-left hover:bg-gray-50 focus:bg-gray-50"
+                    class="w-full px-4 py-2 text-left hover:bg-gray-50 focus:bg-gray-50 text-sm"
                   >
                     {{ item }}
                   </button>
@@ -38,21 +38,21 @@
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('quantity') }}</label>
               <input
                 v-model.number="saleForm.quantity"
                 type="number"
                 min="1"
                 required
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter quantity"
+                :placeholder="$t('enterQuantity')"
               />
             </div>
           </div>
           
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Price per Unit ($)</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('pricePerUnit') }} ($)</label>
               <input
                 v-model.number="saleForm.pricePerUnit"
                 type="number"
@@ -60,12 +60,12 @@
                 min="0"
                 required
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter price"
+                :placeholder="$t('enterPrice')"
               />
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Total ($)</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('total') }} ($)</label>
               <input
                 :value="(saleForm.quantity * saleForm.pricePerUnit).toFixed(2)"
                 type="text"
@@ -76,7 +76,7 @@
           </div>
           
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Customer Type</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('customerType') }}</label>
             <div class="space-y-3">
               <label class="flex items-center">
                 <input
@@ -85,7 +85,7 @@
                   value="walkin"
                   class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 />
-                <span class="ml-2 text-sm text-gray-700">Walk-in Customer</span>
+                <span class="ml-2 text-sm text-gray-700">{{ $t('walkInCustomer') }}</span>
               </label>
               <label class="flex items-center">
                 <input
@@ -94,19 +94,19 @@
                   value="lender"
                   class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 />
-                <span class="ml-2 text-sm text-gray-700">Lender</span>
+                <span class="ml-2 text-sm text-gray-700">{{ $t('lender') }}</span>
               </label>
             </div>
           </div>
           
           <div v-if="saleForm.customerType === 'lender'">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Select Lender</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('selectLender') }}</label>
             <select
               v-model="saleForm.lenderId"
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">Choose a lender</option>
+              <option value="">{{ $t('chooseALender') }}</option>
               <option v-for="lender in lenders" :key="lender.id" :value="lender.id">
                 {{ lender.name }}
               </option>
@@ -114,12 +114,12 @@
           </div>
           
           <div v-if="saleForm.customerType === 'walkin'">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Customer Name (Optional)</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('customerNameOptional') }}</label>
             <input
               v-model="saleForm.customerName"
               type="text"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter customer name or leave blank for 'Walk-in'"
+              :placeholder="$t('enterCustomerNameOrLeaveBlank')"
             />
           </div>
           
@@ -127,13 +127,58 @@
             type="submit"
             class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 rounded-lg font-medium hover:from-blue-600 hover:to-indigo-700 transition-all duration-200"
           >
-            Add Sale
+            {{ $t('reviewSale') }}
           </button>
         </form>
       </div>
       
       <!-- Today's Sales -->
       <SalesList />
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div v-if="showConfirmation" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">{{ $t('confirmSale') }}</h3>
+        
+        <div class="space-y-3 mb-6">
+          <div class="flex justify-between">
+            <span class="text-gray-600">{{ $t('item') }}:</span>
+            <span class="font-medium">{{ saleForm.itemName }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">{{ $t('quantity') }}:</span>
+            <span class="font-medium">{{ saleForm.quantity }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">{{ $t('pricePerUnit') }}:</span>
+            <span class="font-medium">${{ saleForm.pricePerUnit }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">{{ $t('total') }}:</span>
+            <span class="font-bold text-lg">${{ (saleForm.quantity * saleForm.pricePerUnit).toFixed(2) }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">{{ $t('customer') }}:</span>
+            <span class="font-medium">{{ getCustomerName() }}</span>
+          </div>
+        </div>
+        
+        <div class="flex space-x-3">
+          <button
+            @click="handleAddSale"
+            class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-medium hover:from-green-600 hover:to-emerald-700 transition-all duration-200"
+          >
+            {{ $t('yes') }}, {{ $t('save') }}
+          </button>
+          <button
+            @click="showConfirmation = false"
+            class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-400 transition-all duration-200"
+          >
+            {{ $t('cancel') }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -144,11 +189,14 @@ import AppHeader from './AppHeader.vue'
 import SalesList from './SalesList.vue'
 import { useData } from '@/composables/useData'
 import { useAuth } from '@/composables/useAuth'
+import { useI18n } from '@/composables/useI18n'
 
 const { items, lenders, addSale, loadData } = useData()
 const { currentUser } = useAuth()
+const { $t } = useI18n()
 
 const showItemSuggestions = ref(false)
+const showConfirmation = ref(false)
 const filteredItems = ref([])
 
 const saleForm = ref({
@@ -173,10 +221,15 @@ const selectItem = (item) => {
   filteredItems.value = []
 }
 
+const getCustomerName = () => {
+  if (saleForm.value.customerType === 'lender') {
+    return lenders.value.find(l => l.id == saleForm.value.lenderId)?.name || ''
+  }
+  return saleForm.value.customerName || 'Walk-in'
+}
+
 const handleAddSale = () => {
-  const customerName = saleForm.value.customerType === 'lender' 
-    ? lenders.value.find(l => l.id == saleForm.value.lenderId)?.name
-    : saleForm.value.customerName || 'Walk-in'
+  const customerName = getCustomerName()
   
   const saleData = {
     itemName: saleForm.value.itemName,
@@ -200,7 +253,8 @@ const handleAddSale = () => {
     lenderId: ''
   }
   
-  alert('Sale added successfully!')
+  showConfirmation.value = false
+  alert($t('saleAddedSuccessfully'))
 }
 
 onMounted(() => {

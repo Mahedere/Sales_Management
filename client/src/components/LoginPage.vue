@@ -42,7 +42,7 @@
       
       <div class="mt-6 text-center text-sm text-gray-600">
         <p>Demo accounts:</p>
-        <p><strong>admin/admin</strong> (Admin) | <strong>manager/manager</strong> (Sales Manager)</p>
+        <p><strong>manager1/manager1</strong> | <strong>manager2/manager2</strong> | <strong>manager3/manager3</strong></p>
       </div>
     </div>
   </div>

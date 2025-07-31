@@ -4,41 +4,46 @@ A Vue 3 mobile-friendly business management system with user authentication, sal
 
 ## Features
 
-- 🔐 User Authentication (Admin, Sales Manager, Customer Service roles)
-- 📊 Dashboard with real-time statistics
-- 🛒 Sales Input with auto-complete item selection
-- 💳 Lender Management with payment tracking
-- 👥 User Management (Admin only)
+- 🔐 User Authentication (Manager roles)
+- 🛒 Sales Input with confirmation dialog and auto-complete
+- 💳 Lender Management with search and payment tracking
+- 🌐 Bilingual support (English/Amharic)
 - 📱 Mobile-responsive design
 - 💾 Local storage data persistence
-- 📄 Export functionality (CSV, JSON, PDF)
+- 📄 CSV export functionality
 
 ## Demo Accounts
 
-- **Admin**: `admin` / `admin`
-- **Sales Manager**: `manager` / `manager`
-- **Customer Service**: `service` / `service`
+- **Manager 1**: `manager1` / `manager1`
+- **Manager 2**: `manager2` / `manager2`
+- **Manager 3**: `manager3` / `manager3`
 
-## Prerequisites
+## Key Changes Made
 
-- Node.js (version 16 or higher)
-- npm or yarn
+- ✅ **Removed Admin Panel** - Simplified to manager-only access
+- ✅ **Simplified Dashboard** - Only two main action buttons with better spacing
+- ✅ **Added Confirmation Dialog** - "Are you sure" popup for sales input
+- ✅ **Removed PDF/JSON Export** - Only CSV export remains
+- ✅ **Added Search Functionality** - Search lenders by name
+- ✅ **Added Payment Modal** - Notification-style popup for adding payments
+- ✅ **Removed Balance Column** - Only shows Owed, Paid, and Last Payment
+- ✅ **Fixed Overflow Issues** - Better responsive design
+- ✅ **Added Language Toggle** - English/Amharic support
+- ✅ **Removed Remind Button** - Cleaner interface
 
 ## Installation & Setup
 
-1. **Clone or download the project files**
-
-2. **Install dependencies:**
+1. **Install dependencies:**
    \`\`\`bash
    npm install
    \`\`\`
 
-3. **Start the development server:**
+2. **Start the development server:**
    \`\`\`bash
    npm run dev
    \`\`\`
 
-4. **Open your browser and navigate to:**
+3. **Open your browser and navigate to:**
    \`\`\`
    http://localhost:3000
    \`\`\`
@@ -51,7 +56,7 @@ A Vue 3 mobile-friendly business management system with user authentication, sal
 
 ## Project Structure
 
-\`\`\`
+\`\`\`md
 src/
 ├── components/          # Vue components
 │   ├── LoginPage.vue   # Authentication page
@@ -71,14 +76,14 @@ src/
 
 1. **Login** with one of the demo accounts
 2. **Dashboard** shows overview statistics and quick actions
-3. **Sales Input** allows recording daily sales with item suggestions
-4. **Lender Management** tracks customer loans and payments
-5. **User Management** (Admin only) manages system users
+3. **Sales Input** allows recording daily sales with item suggestions and confirmation dialog
+4. **Lender Management** tracks customer loans and payments with search functionality
+5. **Language Toggle** switches between English and Amharic
 
 ## Data Storage
 
 - Data is stored in browser's localStorage
-- Exports available in CSV, JSON, and PDF formats
+- Exports available in CSV format
 - Data persists between sessions
 
 ## Mobile Support
