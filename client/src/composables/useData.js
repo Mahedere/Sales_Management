@@ -24,7 +24,7 @@ const items = ref([
 // Sales data
 const sales = ref([])
 
-// Borrowers data
+// Borrowers data (renamed from lenders)
 const borrowers = ref([
   { id: 1, name: "Abel Mekonnen", totalOwed: 1500, totalPaid: 800, lastPayment: "2024-01-15" },
   { id: 2, name: "Muluwork Abebe", totalOwed: 2200, totalPaid: 2200, lastPayment: "2024-01-20" },
@@ -41,7 +41,7 @@ export function useData() {
   })
 
   const todaysSales = computed(() => {
-    return todaysSalesData.value.reduce((total, sale) => total + sale.total, 0).toFixed(2)
+    return todaysSalesData.value.reduce((total, sale) => total + (sale.total || 0), 0).toFixed(2)
   })
 
   const overdueBorrowers = computed(() => {
@@ -60,7 +60,7 @@ export function useData() {
   })
 
   const itemsSoldToday = computed(() => {
-    return todaysSalesData.value.reduce((total, sale) => total + sale.quantity, 0)
+    return todaysSalesData.value.reduce((total, sale) => total + (sale.quantity || 0), 0)
   })
 
   // Methods
@@ -77,9 +77,15 @@ export function useData() {
   const loadData = () => {
     const saved = localStorage.getItem("businessData")
     if (saved) {
-      const data = JSON.parse(saved)
-      sales.value = data.sales || []
-      borrowers.value = data.borrowers || borrowers.value
+      try {
+        const data = JSON.parse(saved)
+        sales.value = data.sales || []
+        // Handle both old 'lenders' and new 'borrowers' data
+        borrowers.value = data.borrowers || data.lenders || borrowers.value
+      } catch (error) {
+        console.error("Error loading data:", error)
+        // Keep default data if parsing fails
+      }
     }
   }
 
@@ -108,7 +114,8 @@ export function useData() {
   const addBorrower = (borrowerData) => {
     const borrower = {
       id: Date.now(),
-      ...borrowerData,
+      name: borrowerData.name,
+      totalOwed: borrowerData.totalOwed || 0,
       totalPaid: 0,
       lastPayment: null,
     }
@@ -133,6 +140,8 @@ export function useData() {
     items,
     sales,
     borrowers,
+    // Keep lenders as alias for backward compatibility
+    lenders: borrowers,
     todaysSalesData,
     todaysSales,
     overdueBorrowers,
@@ -142,6 +151,8 @@ export function useData() {
     loadData,
     addSale,
     addBorrower,
+    // Keep addLender as alias for backward compatibility
+    addLender: addBorrower,
     addPayment,
   }
 }

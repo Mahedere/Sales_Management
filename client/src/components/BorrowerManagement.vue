@@ -53,11 +53,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
               <div>
                 <p class="text-gray-600">{{ $t('totalOwed') }}</p>
-                <p class="font-semibold text-red-600 text-lg">${{ borrower.totalOwed.toFixed(2) }}</p>
+                <p class="font-semibold text-red-600 text-lg">${{ (borrower.totalOwed || 0).toFixed(2) }}</p>
               </div>
               <div>
                 <p class="text-gray-600">{{ $t('totalPaid') }}</p>
-                <p class="font-semibold text-green-600 text-lg">${{ borrower.totalPaid.toFixed(2) }}</p>
+                <p class="font-semibold text-green-600 text-lg">${{ (borrower.totalPaid || 0).toFixed(2) }}</p>
               </div>
               <div>
                 <p class="text-gray-600">{{ $t('lastPayment') }}</p>
@@ -65,15 +65,15 @@
               </div>
             </div>
             
-            <div v-if="borrower.totalOwed - borrower.totalPaid > 0" class="mt-4">
+            <div v-if="(borrower.totalOwed || 0) - (borrower.totalPaid || 0) > 0" class="mt-4">
               <div class="w-full bg-gray-200 rounded-full h-3">
                 <div
                   class="bg-gradient-to-r from-green-500 to-emerald-600 h-3 rounded-full transition-all duration-300"
-                  :style="{ width: `${Math.min((borrower.totalPaid / borrower.totalOwed) * 100, 100)}%` }"
+                  :style="{ width: `${Math.min(((borrower.totalPaid || 0) / (borrower.totalOwed || 1)) * 100, 100)}%` }"
                 ></div>
               </div>
               <p class="text-xs text-gray-600 mt-2">
-                {{ ((borrower.totalPaid / borrower.totalOwed) * 100).toFixed(1) }}% {{ $t('paid') }}
+                {{ (((borrower.totalPaid || 0) / (borrower.totalOwed || 1)) * 100).toFixed(1) }}% {{ $t('paid') }}
               </p>
             </div>
           </div>
