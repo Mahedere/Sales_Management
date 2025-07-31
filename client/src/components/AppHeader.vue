@@ -46,7 +46,7 @@ const getPageTitle = () => {
   const titles = {
     dashboard: $t('dashboard'),
     sales: $t('salesInput'),
-    lenders: $t('lenderManagement')
+    borrowers: $t('borrowerManagement')
   }
   return titles[route.name] || $t('dashboard')
 }

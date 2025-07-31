@@ -7,13 +7,13 @@ import "./style.css"
 import LoginPage from "./components/LoginPage.vue"
 import Dashboard from "./components/Dashboard.vue"
 import SalesInput from "./components/SalesInput.vue"
-import LenderManagement from "./components/LenderManagement.vue"
+import BorrowerManagement from "./components/BorrowerManagement.vue"
 
 const routes = [
   { path: "/", name: "login", component: LoginPage },
   { path: "/dashboard", name: "dashboard", component: Dashboard },
   { path: "/sales", name: "sales", component: SalesInput },
-  { path: "/lenders", name: "lenders", component: LenderManagement },
+  { path: "/borrowers", name: "borrowers", component: BorrowerManagement },
 ]
 
 const router = createRouter({

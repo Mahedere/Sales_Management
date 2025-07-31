@@ -23,7 +23,7 @@
           </button>
           
           <button
-            @click="$router.push('/lenders')"
+            @click="$router.push('/borrowers')"
             class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-8 rounded-2xl shadow-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-200 transform hover:scale-105"
           >
             <div class="flex flex-col items-center space-y-4">
@@ -31,7 +31,7 @@
                 <CreditCard class="w-8 h-8" />
               </div>
               <div class="text-center">
-                <h3 class="text-2xl font-bold">{{ $t('lenderManagement') }}</h3>
+                <h3 class="text-2xl font-bold">{{ $t('borrowerManagement') }}</h3>
                 <p class="text-green-100 text-lg mt-2">{{ $t('trackLoansPayments') }}</p>
               </div>
             </div>

@@ -91,24 +91,24 @@
                 <input
                   v-model="saleForm.customerType"
                   type="radio"
-                  value="lender"
+                  value="borrower"
                   class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 />
-                <span class="ml-2 text-sm text-gray-700">{{ $t('lender') }}</span>
+                <span class="ml-2 text-sm text-gray-700">{{ $t('borrower') }}</span>
               </label>
             </div>
           </div>
           
-          <div v-if="saleForm.customerType === 'lender'">
-            <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('selectLender') }}</label>
+          <div v-if="saleForm.customerType === 'borrower'">
+            <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('selectBorrower') }}</label>
             <select
-              v-model="saleForm.lenderId"
+              v-model="saleForm.borrowerId"
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">{{ $t('chooseALender') }}</option>
-              <option v-for="lender in lenders" :key="lender.id" :value="lender.id">
-                {{ lender.name }}
+              <option value="">{{ $t('chooseABorrower') }}</option>
+              <option v-for="borrower in borrowers" :key="borrower.id" :value="borrower.id">
+                {{ borrower.name }}
               </option>
             </select>
           </div>
@@ -191,7 +191,7 @@ import { useData } from '@/composables/useData'
 import { useAuth } from '@/composables/useAuth'
 import { useI18n } from '@/composables/useI18n'
 
-const { items, lenders, addSale, loadData } = useData()
+const { items, borrowers, addSale, loadData } = useData() // <-- use borrowers
 const { currentUser } = useAuth()
 const { $t } = useI18n()
 
@@ -205,7 +205,7 @@ const saleForm = ref({
   pricePerUnit: 0,
   customerType: 'walkin',
   customerName: '',
-  lenderId: ''
+  borrowerId: ''
 })
 
 const filterItems = () => {
@@ -222,8 +222,8 @@ const selectItem = (item) => {
 }
 
 const getCustomerName = () => {
-  if (saleForm.value.customerType === 'lender') {
-    return lenders.value.find(l => l.id == saleForm.value.lenderId)?.name || ''
+  if (saleForm.value.customerType === 'borrower') {
+    return lenders.value.find(b => b.id == saleForm.value.borrowerId)?.name || ''
   }
   return saleForm.value.customerName || 'Walk-in'
 }
@@ -238,7 +238,7 @@ const handleAddSale = () => {
     total: saleForm.value.quantity * saleForm.value.pricePerUnit,
     customerType: saleForm.value.customerType,
     customerName,
-    lenderId: saleForm.value.lenderId
+    borrowerId: saleForm.value.borrowerId
   }
   
   addSale(saleData, currentUser.value.id)
@@ -250,7 +250,7 @@ const handleAddSale = () => {
     pricePerUnit: 0,
     customerType: 'walkin',
     customerName: '',
-    lenderId: ''
+    borrowerId: ''
   }
   
   showConfirmation.value = false

@@ -24,8 +24,8 @@ const items = ref([
 // Sales data
 const sales = ref([])
 
-// Lenders data
-const lenders = ref([
+// Borrowers data
+const borrowers = ref([
   { id: 1, name: "Abel Mekonnen", totalOwed: 1500, totalPaid: 800, lastPayment: "2024-01-15" },
   { id: 2, name: "Muluwork Abebe", totalOwed: 2200, totalPaid: 2200, lastPayment: "2024-01-20" },
   { id: 3, name: "Yared Tadesse", totalOwed: 800, totalPaid: 300, lastPayment: "2024-01-10" },
@@ -44,10 +44,10 @@ export function useData() {
     return todaysSalesData.value.reduce((total, sale) => total + sale.total, 0).toFixed(2)
   })
 
-  const overdueLenders = computed(() => {
-    return lenders.value.filter((lender) => {
-      const balance = lender.totalOwed - lender.totalPaid
-      const lastPaymentDate = lender.lastPayment ? new Date(lender.lastPayment) : null
+  const overdueBorrowers = computed(() => {
+    return borrowers.value.filter((borrower) => {
+      const balance = borrower.totalOwed - borrower.totalPaid
+      const lastPaymentDate = borrower.lastPayment ? new Date(borrower.lastPayment) : null
       const daysSincePayment = lastPaymentDate
         ? (new Date() - lastPaymentDate) / (1000 * 60 * 60 * 24)
         : Number.POSITIVE_INFINITY
@@ -55,8 +55,8 @@ export function useData() {
     }).length
   })
 
-  const totalLenders = computed(() => {
-    return lenders.value.filter((lender) => lender.totalOwed - lender.totalPaid > 0).length
+  const totalBorrowers = computed(() => {
+    return borrowers.value.filter((borrower) => borrower.totalOwed - borrower.totalPaid > 0).length
   })
 
   const itemsSoldToday = computed(() => {
@@ -69,7 +69,7 @@ export function useData() {
       "businessData",
       JSON.stringify({
         sales: sales.value,
-        lenders: lenders.value,
+        borrowers: borrowers.value,
       }),
     )
   }
@@ -79,7 +79,7 @@ export function useData() {
     if (saved) {
       const data = JSON.parse(saved)
       sales.value = data.sales || []
-      lenders.value = data.lenders || lenders.value
+      borrowers.value = data.borrowers || borrowers.value
     }
   }
 
@@ -93,11 +93,11 @@ export function useData() {
 
     sales.value.push(sale)
 
-    // Update lender debt if applicable
-    if (saleData.customerType === "lender" && saleData.lenderId) {
-      const lender = lenders.value.find((l) => l.id == saleData.lenderId)
-      if (lender) {
-        lender.totalOwed += sale.total
+    // Update borrower debt if applicable
+    if (saleData.customerType === "borrower" && saleData.borrowerId) {
+      const borrower = borrowers.value.find((b) => b.id == saleData.borrowerId)
+      if (borrower) {
+        borrower.totalOwed += sale.total
       }
     }
 
@@ -105,24 +105,24 @@ export function useData() {
     return sale
   }
 
-  const addLender = (lenderData) => {
-    const lender = {
+  const addBorrower = (borrowerData) => {
+    const borrower = {
       id: Date.now(),
-      ...lenderData,
+      ...borrowerData,
       totalPaid: 0,
       lastPayment: null,
     }
 
-    lenders.value.push(lender)
+    borrowers.value.push(borrower)
     saveData()
-    return lender
+    return borrower
   }
 
-  const addPayment = (lenderId, amount) => {
-    const lender = lenders.value.find((l) => l.id === lenderId)
-    if (lender) {
-      lender.totalPaid += Number.parseFloat(amount)
-      lender.lastPayment = new Date().toISOString().split("T")[0]
+  const addPayment = (borrowerId, amount) => {
+    const borrower = borrowers.value.find((b) => b.id === borrowerId)
+    if (borrower) {
+      borrower.totalPaid += Number.parseFloat(amount)
+      borrower.lastPayment = new Date().toISOString().split("T")[0]
       saveData()
       return true
     }
@@ -132,16 +132,16 @@ export function useData() {
   return {
     items,
     sales,
-    lenders,
+    borrowers,
     todaysSalesData,
     todaysSales,
-    overdueLenders,
-    totalLenders,
+    overdueBorrowers,
+    totalBorrowers,
     itemsSoldToday,
     saveData,
     loadData,
     addSale,
-    addLender,
+    addBorrower,
     addPayment,
   }
 }

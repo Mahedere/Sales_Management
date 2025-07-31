@@ -181,35 +181,19 @@ import AppHeader from './AppHeader.vue'
 import { useData } from '@/composables/useData'
 import { useI18n } from '@/composables/useI18n'
 
-const { lenders: borrowers, addLender: addBorrower, addPayment, loadData } = useData()
+const { borrowers, addBorrower, addPayment, loadData } = useData()
 const { $t } = useI18n()
 
-const showAddLender = ref(false)
 const showAddBorrower = ref(false)
 const showPaymentForm = ref(false)
 const searchQuery = ref('')
-const selectedLenderId = ref(null)
 const selectedBorrowerId = ref(null)
-const selectedLenderName = ref('')
 const selectedBorrowerName = ref('')
 const paymentAmount = ref(0)
-
-const newLender = ref({
-  name: '',
-  totalOwed: 0
-})
 
 const newBorrower = ref({
   name: '',
   totalOwed: 0
-})
-
-const filteredLenders = computed(() => {
-  if (!searchQuery.value) return borrowers.value
-  
-  return borrowers.value.filter(borrower =>
-    borrower.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
 })
 
 const filteredBorrowers = computed(() => {
@@ -220,13 +204,6 @@ const filteredBorrowers = computed(() => {
   )
 })
 
-const handleAddLender = () => {
-  addBorrower(newBorrower.value)
-  newBorrower.value = { name: '', totalOwed: 0 }
-  showAddBorrower.value = false
-  alert($t('borrowerAddedSuccessfully'))
-}
-
 const handleAddBorrower = () => {
   addBorrower(newBorrower.value)
   newBorrower.value = { name: '', totalOwed: 0 }
@@ -234,10 +211,10 @@ const handleAddBorrower = () => {
   alert($t('borrowerAddedSuccessfully'))
 }
 
-const showPaymentModal = (lenderId) => {
-  const borrower = borrowers.value.find(l => l.id === lenderId)
+const showPaymentModal = (borrowerId) => {
+  const borrower = borrowers.value.find(b => b.id === borrowerId)
   if (borrower) {
-    selectedBorrowerId.value = lenderId
+    selectedBorrowerId.value = borrowerId
     selectedBorrowerName.value = borrower.name
     paymentAmount.value = 0
     showPaymentForm.value = true
