@@ -54,24 +54,6 @@ A Vue 3 mobile-friendly business management system with user authentication, sal
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 
-## Project Structure
-
-\`\`\`md
-src/
-├── components/          # Vue components
-│   ├── LoginPage.vue   # Authentication page
-│   ├── Dashboard.vue   # Main dashboard
-│   ├── SalesInput.vue  # Sales recording
-│   ├── LenderManagement.vue # Lender tracking
-│   └── ...
-├── composables/        # Vue composables
-│   ├── useAuth.js     # Authentication logic
-│   └── useData.js     # Data management
-├── main.js            # App entry point
-├── App.vue            # Root component
-└── style.css          # Global styles
-\`\`\`
-
 ## Usage
 
 1. **Login** with one of the demo accounts
