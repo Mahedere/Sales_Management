@@ -18,19 +18,6 @@ A Vue 3 mobile-friendly business management system with user authentication, sal
 - **Manager 2**: `manager2` / `manager2`
 - **Manager 3**: `manager3` / `manager3`
 
-## Key Changes Made
-
-- ✅ **Removed Admin Panel** - Simplified to manager-only access
-- ✅ **Simplified Dashboard** - Only two main action buttons with better spacing
-- ✅ **Added Confirmation Dialog** - "Are you sure" popup for sales input
-- ✅ **Removed PDF/JSON Export** - Only CSV export remains
-- ✅ **Added Search Functionality** - Search lenders by name
-- ✅ **Added Payment Modal** - Notification-style popup for adding payments
-- ✅ **Removed Balance Column** - Only shows Owed, Paid, and Last Payment
-- ✅ **Fixed Overflow Issues** - Better responsive design
-- ✅ **Added Language Toggle** - English/Amharic support
-- ✅ **Removed Remind Button** - Cleaner interface
-
 ## Installation & Setup
 
 1. **Install dependencies:**
