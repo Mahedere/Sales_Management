@@ -1,4 +1,4 @@
-# Business Management System
+# Sales Management System
 
 A Vue 3 mobile-friendly business management system with user authentication, sales tracking, and lender management.
 
